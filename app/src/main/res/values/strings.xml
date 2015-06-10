@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">MyAppPortfolio</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- data for generating the buttons -->
+    <string-array name="button_labels">
+        <item>Spotify Streamer</item>
+        <item>Football Scores</item>
+        <item>Library</item>
+        <item>Build It Bigger</item>
+        <item>XYZ Reader</item>
+        <item>Capstone</item>
+    </string-array>
+</resources>
