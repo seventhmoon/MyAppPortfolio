@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/cell_textview"
+        android:layout_width="240dp"
+        android:layout_height="48dp"
+        android:layout_margin="8dp"
+        android:background="#F08C35"
+
+        android:gravity="center"
+        android:textAppearance="@android:style/TextAppearance.Medium" />
+</RelativeLayout>
