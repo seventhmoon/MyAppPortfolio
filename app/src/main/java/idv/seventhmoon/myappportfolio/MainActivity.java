@@ -1,23 +1,41 @@
 package idv.seventhmoon.myappportfolio;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
+/**
+ * @author Fung LAM
+ */
+public class MainActivity extends AppCompatActivity {
 
-public class MainActivity extends ActionBarActivity {
+    private MyAdapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private RecyclerView mRecyclerView;
+    private String[] mLabels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        View listView = findViewById(R.id.listview);
-        String[] labels = getResources().getStringArray(R.array.button_labels);
+        mRecyclerView = (RecyclerView) findViewById(R.id.listview);
+        mLabels = getResources().getStringArray(R.array.button_labels);
 
-        
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        // specify an adapter (see also next example)
+        mAdapter = new MyAdapter();
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
@@ -40,5 +58,60 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+
+        // Create new views (invoked by the layout manager)
+        @Override
+        public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                       int viewType) {
+            // create a new view
+            View v = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.cell, parent, false);
+            // set the view's size, margins, paddings and layout parameters
+
+            ViewHolder vh = new ViewHolder(v);
+            return vh;
+        }
+
+        // Replace the contents of a view (invoked by the layout manager)
+        @Override
+        public void onBindViewHolder(ViewHolder holder, int position) {
+
+            holder.mTextView.setText(mLabels[position]);
+            holder.mViewParent.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+                    int position = mRecyclerView.getChildAdapterPosition(view);
+                    Toast.makeText(getApplicationContext(), getString(R.string.toast_message, mLabels[position]), Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return mLabels.length;
+        }
+
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+
+            public View mViewParent;
+            public TextView mTextView;
+
+            public ViewHolder(View v) {
+                super(v);
+                mViewParent = v;
+                mTextView = (TextView) v.findViewById(R.id.cell_textview);
+
+            }
+
+
+        }
+
+
     }
 }
